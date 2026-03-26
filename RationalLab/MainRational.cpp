@@ -2,16 +2,17 @@
 #include <cstdlib>
 #include "Rational.h"
 #include <string>
-
 int main()
 {
     Rational x, y, z;
+    float a, b;
     std::string t, ch1, ch2;
     char zn = ' ';
-
     while (true) {
-        std::cin >> t;
-        for (int i = 0; i < std::size(t); ++i) {
+        std::cin >> a >> b;
+        x.SetVal(a);
+        y.SetVal(b);
+        /*for (int i = 0; i < std::size(t); ++i) {
             if (!isdigit(t[i]) && (t[i] != '.') && (t[i] != ',')) {
                 zn = t[i];
                 t[i] = ' ';
@@ -21,7 +22,12 @@ int main()
                 y.SetVal(stof(ch2));
                 break;
             }
-        }
+        }*/
+        z = x + y;
+        x.PrValue();
+
+        break;
+
     }
 
 }
