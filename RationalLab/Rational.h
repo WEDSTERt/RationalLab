@@ -6,8 +6,11 @@ public:
 
     Rational();
     Rational(float value);
+    Rational(double value);
+
     void Ratgcd(Rational& gcdval);
     void SetVal(float value);
+    void SetVal(double value);
     float GetVal() const;
     void PrValue() const;
 
@@ -48,8 +51,8 @@ public:
     Rational operator& (const Rational& x);
     Rational operator| (const Rational& x);
     Rational operator^ (const Rational& x);
-    Rational operator<< (const Rational& x);
-    Rational operator>> (const Rational& x);
+    Rational operator<< (const int x);
+    Rational operator>> (const int x);
     Rational operator~ ();
 
     //Casting Operators
