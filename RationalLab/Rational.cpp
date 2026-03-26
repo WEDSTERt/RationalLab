@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Rational.h"
+
 Rational::Rational() {
     num = 1;
     del = 0;
@@ -9,6 +10,14 @@ Rational::Rational(float value) {
     del = 0;
     void SetVal(float value);
 }
+Rational::Rational(double value) {
+    num = 0;
+    del = 0;
+    void SetVal(double value);
+}
+
+
+
 void Rational::Ratgcd(Rational& gcdval) {
 
     int64_t a = std::abs(gcdval.num);
@@ -21,9 +30,38 @@ void Rational::Ratgcd(Rational& gcdval) {
     gcdval.num = gcdval.num / a;
     gcdval.del = gcdval.del / a;
 }
+
 void Rational::SetVal(float value) {
     int64_t bits;
     std::memcpy(&bits, &value, sizeof(float));
+
+    int64_t sign = (bits >> 31) & 1;
+    int64_t exp = (bits >> 23) & 0xFF;
+    int64_t mant = bits & 0x7FFFFF;
+
+    if (exp == 0) {
+        num = mant;
+        del = 1 << 22;
+        if (sign) num = -num;
+    }
+    else if (exp == 0xFF) {
+        num = 0;
+        del = 1;
+    }
+    else {
+        num = (1LL << 23) + mant;
+        del = 1LL << (23 - (exp - 127));
+        if (sign) num = -num;
+    }
+    if (sign) {
+        num = -num;
+    }
+    Ratgcd(*this);
+}
+
+void Rational::SetVal(double value) {
+    int64_t bits;
+    std::memcpy(&bits, &value, sizeof(double));
 
     int64_t sign = (bits >> 31) & 1;
     int64_t exp = (bits >> 23) & 0xFF;
@@ -197,20 +235,22 @@ Rational Rational::operator^ (const Rational& x) {
     Ratgcd(res);
     return res;
 }
-Rational Rational::operator<< (const Rational& x) {
+Rational Rational::operator<< (const int x) {
     Rational res{};
-    res.num = num << x.num;
-    res.del = del << x.del;
+    res.num = num << x;
+    res.del = del << x;
     Ratgcd(res);
     return res;
 }
-Rational Rational::operator>> (const Rational& x) {
+Rational Rational::operator>> (const int x) {
     Rational res{};
-    res.num = num >> x.num;
-    res.del = del >> x.del;
+    res.num = num >> x;
+    res.del = del >> x;
     Ratgcd(res);
     return res;
 }
+
+
 Rational Rational::operator~ () {
     Rational res{};
     res.num = ~num;
