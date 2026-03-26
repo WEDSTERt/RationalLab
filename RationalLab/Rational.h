@@ -1,16 +1,16 @@
 #pragma once
 
+#include <string>
+
 class Rational
 {
 public:
 
     Rational();
     Rational(float value);
-    Rational(double value);
 
     void Ratgcd(Rational& gcdval);
     void SetVal(float value);
-    void SetVal(double value);
     float GetVal() const;
     void PrValue() const;
 
@@ -63,3 +63,5 @@ private:
     int64_t num;
     uint64_t del;
 };
+
+Rational EvalLinearExpr(const std::string& expr);

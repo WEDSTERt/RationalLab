@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="RationalLab/RationalLab.vcxproj" />
+  <Project Path="RationalLab/RationalLab.vcxproj" Id="e1450050-9c14-41fa-86c0-408150ad5ce1" />
 </Solution>

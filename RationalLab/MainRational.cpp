@@ -1,33 +1,29 @@
 #include <iostream>
-#include <cstdlib>
 #include "Rational.h"
 #include <string>
+
 int main()
 {
-    Rational x, y, z;
-    float a, b;
-    std::string t, ch1, ch2;
-    char zn = ' ';
-    while (true) {
-        std::cin >> a >> b;
-        x.SetVal(a);
-        y.SetVal(b);
-        /*for (int i = 0; i < std::size(t); ++i) {
-            if (!isdigit(t[i]) && (t[i] != '.') && (t[i] != ',')) {
-                zn = t[i];
-                t[i] = ' ';
-                ch1 = t.substr(0, i);
-                ch2 = t.substr(i + 1, std::size(t));
-                x.SetVal(stof(ch1));
-                y.SetVal(stof(ch2));
-                break;
-            }
-        }*/
-        z = x + y;
-        x.PrValue();
+    Rational res;
+    std::string expr;
+    std::cout << "Enter an algebraic expression:\n";
+    std::getline(std::cin, expr);
+    if (expr.empty()) return 0;
 
-        break;
-
+    for (char c : expr) {
+        if (std::isalpha((unsigned char)c)) {
+            std::cerr << "Variables are not supported. Enter an expression with numbers only." << std::endl;
+            return 1;
+        }
     }
 
+    try {
+        res = EvalLinearExpr(expr);
+        std::cout << "Result (rational): "; res.PrValue();
+    } catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+        return 1;
+    }
+
+    return 0;
 }
