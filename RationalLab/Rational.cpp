@@ -3,12 +3,13 @@
 #include "Rational.h"
 
 Rational::Rational() {
-    num = 1;
-    del = 0;
+    num = 0;
+    del = 1;
 }
 Rational::Rational(float value) {
     num = 0;
     del = 0;
+    SetVal(value);
 }
 
 void Rational::Ratgcd(Rational& gcdval) {
