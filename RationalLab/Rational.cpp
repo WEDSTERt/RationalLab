@@ -17,9 +17,9 @@ Rational::Rational(const Rational& c){
     num = c.num;
     del = c.del;
 } 
-Rational::Rational(Rational&& t){
-    std::swap(num, t.num);
+Rational::Rational(Rational&& t) noexcept {
     std::swap(del, t.del);
+    std::swap(num, t.num);
 }
 
 Rational::~Rational() {
@@ -325,7 +325,7 @@ namespace {
                 }
                 std::string numstr = s.substr(start, i - start);
                 double val = std::stod(numstr);
-                Rational r; r.SetVal(val);
+                Rational r(val);
                 return r;
             }
             throw std::runtime_error(std::string("Unexpected character: ") + s[i]);

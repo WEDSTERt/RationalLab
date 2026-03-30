@@ -8,9 +8,9 @@ public:
 
     Rational();
     Rational(float);
-    Rational(const Rational&);
     Rational(int64_t, uint64_t);
-    Rational(Rational&&);
+    Rational(const Rational&);
+    Rational(Rational&&) noexcept;
     ~Rational();
     void Ratgcd(Rational& gcdval);
     void SetVal(float);
