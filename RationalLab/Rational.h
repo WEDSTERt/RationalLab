@@ -7,25 +7,28 @@ class Rational
 public:
 
     Rational();
-    Rational(float value);
+    Rational(float);
+    Rational(const Rational&);
+    Rational(int64_t, uint64_t);
+
 
     void Ratgcd(Rational& gcdval);
-    void SetVal(float value);
+    void SetVal(float);
     float GetVal() const;
     void PrValue() const;
 
     // Arithmetic Operators
-    Rational operator +(const Rational& x);
-    Rational operator -(const Rational& x);
-    Rational operator *(const Rational& x);
-    Rational operator /(const Rational& x);
+    Rational operator +(const Rational&);
+    Rational operator -(const Rational&);
+    Rational operator *(const Rational&);
+    Rational operator /(const Rational&);
 
     // Assignment Operators
-    Rational& operator =(const Rational& x);
-    Rational& operator +=(const Rational& x);
-    Rational& operator -=(const Rational& x);
-    Rational& operator *=(const Rational& x);
-    Rational& operator /=(const Rational& x);
+    Rational& operator =(const Rational&);
+    Rational& operator +=(const Rational&);
+    Rational& operator -=(const Rational&);
+    Rational& operator *=(const Rational&);
+    Rational& operator /=(const Rational&);
 
     // Operators unar
     Rational& operator ++();
@@ -35,26 +38,25 @@ public:
 
 
     //Relational Operators
-    bool operator==(const Rational& x);
-    bool operator!=(const Rational& x);
-    bool operator>(const Rational& x);
-    bool operator<(const Rational& x);
-    bool operator>=(const Rational& x);
-    bool operator<= (const Rational& x);
+    bool operator==(const Rational&);
+    bool operator!=(const Rational&);
+    bool operator>(const Rational&);
+    bool operator<(const Rational&);
+    bool operator>=(const Rational&);
+    bool operator<= (const Rational&);
 
     //Logical Operators
-    bool operator&& (const Rational& x);
-    bool operator|| (const Rational& x);
+    bool operator&& (const Rational&);
+    bool operator|| (const Rational&);
     bool operator! ();
 
     //Bitwise Operators
-    Rational operator& (const Rational& x);
-    Rational operator| (const Rational& x);
-    Rational operator^ (const Rational& x);
-    Rational operator<< (const int x);
-    Rational operator>> (const int x);
+    Rational operator& (const Rational&);
+    Rational operator| (const Rational&);
+    Rational operator^ (const Rational&);
+    Rational operator<< (const int);
+    Rational operator>> (const int);
     Rational operator~ ();
-
     //Casting Operators
     operator double() const;
     operator float() const;
@@ -64,4 +66,4 @@ private:
     uint64_t del;
 };
 
-Rational EvalLinearExpr(const std::string& expr);
+Rational EvalLinearExpr(const std::string&);
