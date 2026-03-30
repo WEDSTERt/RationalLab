@@ -11,7 +11,7 @@ Rational::Rational(float value) {
     del = 0;
     SetVal(value);
 }
-Rational(const Rational& c){
+Rational::Rational(const Rational& c){
     num = c.num;
     del = c.del;
 } 
