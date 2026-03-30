@@ -8,6 +8,7 @@ public:
 
     Rational();
     Rational(float value);
+    Rational(const Rational& c);
 
     void Ratgcd(Rational& gcdval);
     void SetVal(float value);
