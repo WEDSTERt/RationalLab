@@ -1,6 +1,7 @@
 #include <iostream>
-#include "Rational.h"
 #include <string>
+#include "Rational.h"
+#include "Parser.h"
 
 int main()
 {
@@ -16,10 +17,9 @@ int main()
             return 1;
         }
     }
-
     try {
-        res = EvalLinearExpr(expr);
-        std::cout << "Result (rational): "; res.PrValue();
+        res = LinExpr(expr);
+        std::cout << "Result: "; res.PrValue();
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
         return 1;

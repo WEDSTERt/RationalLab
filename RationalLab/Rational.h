@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-
+#include <iostream>
 class Rational
 {
 public:
@@ -66,4 +66,4 @@ private:
     uint64_t del;
 };
 
-Rational EvalLinearExpr(const std::string&);
+

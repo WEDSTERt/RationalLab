@@ -1,5 +1,3 @@
-#include <iostream>
-#include <string>
 #include "Rational.h"
 
 Rational::Rational() {
@@ -23,7 +21,7 @@ Rational::Rational(Rational&& t) noexcept {
 }
 
 Rational::~Rational() {
-    std::cout << "Delete Var "<< std::endl;
+ //   std::cout << "Delete Var "<< std::endl;
 }
 
 void Rational::Ratgcd(Rational& gcdval) {
@@ -252,91 +250,4 @@ Rational::operator float() const
 Rational::operator int() const
 {
     return int(float(num) / float(del));
-}
-
-// Parser implementation for EvalLinearExpr
-namespace {
-    struct Parser {
-        const std::string& s;
-        size_t i;
-        Parser(const std::string& str) : s(str), i(0) {}
-
-        void skip() {
-            while (i < s.size() && std::isspace((unsigned char)s[i])) ++i;
-        }
-
-        Rational parseExpression() {
-            Rational res = parseTerm();
-            skip();
-            while (i < s.size()) {
-                if (s[i] == '+') {
-                    ++i; skip();
-                    res = res + parseTerm();
-                } else if (s[i] == '-') {
-                    ++i; skip();
-                    res = res - parseTerm();
-                } else break;
-                skip();
-            }
-            return res;
-        }
-
-        Rational parseTerm() {
-            Rational res = parseFactor();
-            skip();
-            while (i < s.size()) {
-                if (s[i] == '*') {
-                    ++i; skip();
-                    res = res * parseFactor();
-                } else if (s[i] == '/') {
-                    ++i; skip();
-                    res = res / parseFactor();
-                } else break;
-                skip();
-            }
-            return res;
-        }
-
-        Rational parseFactor() {
-            skip();
-            if (i >= s.size()) throw std::runtime_error("Unexpected end of expression");
-            if (s[i] == '+') { ++i; return parseFactor(); }
-            if (s[i] == '-') { ++i; Rational v = parseFactor(); Rational zero; zero.SetVal(0.0); return zero - v; }
-            if (s[i] == '(') {
-                ++i;
-                Rational v = parseExpression();
-                skip();
-                if (i >= s.size() || s[i] != ')') throw std::runtime_error("Missing closing parenthesis");
-                ++i;
-                return v;
-            }
-            if (std::isalpha((unsigned char)s[i])) {
-                throw std::runtime_error(std::string("Variables are not supported: ") + s[i]);
-            }
-            if (std::isdigit((unsigned char)s[i]) || s[i] == '.') {
-                size_t start = i;
-                bool hasDot = false;
-                while (i < s.size() && (std::isdigit((unsigned char)s[i]) || s[i] == '.')) {
-                    if (s[i] == '.') {
-                        if (hasDot) break;
-                        hasDot = true;
-                    }
-                    ++i;
-                }
-                std::string numstr = s.substr(start, i - start);
-                double val = std::stod(numstr);
-                Rational r(val);
-                return r;
-            }
-            throw std::runtime_error(std::string("Unexpected character: ") + s[i]);
-        }
-    };
-}
-
-Rational EvalLinearExpr(const std::string& expr) {
-    Parser p(expr);
-    Rational res = p.parseExpression();
-    p.skip();
-    if (p.i != expr.size()) throw std::runtime_error("Trailing characters in expression");
-    return res;
 }
