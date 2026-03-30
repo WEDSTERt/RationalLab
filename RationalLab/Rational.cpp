@@ -7,13 +7,18 @@ Rational::Rational() {
     del = 1;
 }
 Rational::Rational(float value) {
+    num = 0;
+    del = 0;
     SetVal(value);
 }
-Rational::Rational(const Rational& s) {
-    num = s.num;
-    del = s.del;
+Rational::Rational(const Rational& c){
+    num = c.num;
+    del = c.del;
+} 
+Rational::Rational(int64_t t_num, uint64_t t_del) {
+    num = t_num;
+    del = t_del;
 }
-Rational::Rational(int64_t a, uint64_t b) : num(a), del(b) {}
 
 void Rational::Ratgcd(Rational& gcdval) {
 
