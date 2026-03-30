@@ -11,6 +11,10 @@ Rational::Rational(float value) {
     del = 0;
     SetVal(value);
 }
+Rational(const Rational& c){
+    num = c.num;
+    del = c.del;
+} 
 
 void Rational::Ratgcd(Rational& gcdval) {
 
