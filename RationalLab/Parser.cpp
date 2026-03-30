@@ -1,5 +1,4 @@
 #include "Parser.h"
-
 Parser::Parser(const std::string& str) : s(str), i(0) {}
 
 void Parser::skip(){
@@ -42,9 +41,11 @@ Rational Parser::parseTerm() {
 }
 Rational Parser::parseFactor() {
     skip();
-    if (i >= s.size()) throw std::runtime_error("Unexpected end of expression");
     if (s[i] == '+') { ++i; return parseFactor(); }
-    if (s[i] == '-') { ++i; Rational v = parseFactor(); Rational zero; zero.SetVal(0.0); return zero - v; }
+    if (s[i] == '-') { ++i; 
+    Rational v = parseFactor(); 
+    return -v; 
+    }
     if (s[i] == '(') {
         ++i;
         Rational v = parseExpression();
@@ -52,9 +53,6 @@ Rational Parser::parseFactor() {
         if (i >= s.size() || s[i] != ')') throw std::runtime_error("Missing closing parenthesis");
         ++i;
         return v;
-    }
-    if (std::isalpha((unsigned char)s[i])) {
-        throw std::runtime_error(std::string("Variables are not supported: ") + s[i]);
     }
     if (std::isdigit((unsigned char)s[i]) || s[i] == '.') {
         size_t start = i;
@@ -72,11 +70,4 @@ Rational Parser::parseFactor() {
         return r;
     }
     throw std::runtime_error(std::string("Unexpected character: ") + s[i]);
-}
-Rational LinExpr(const std::string& expr) {
-    Parser p(expr);
-    Rational res = p.parseExpression();
-    p.skip();
-    if (p.i != expr.size()) throw std::runtime_error("Trailing characters in expression");
-    return res;
 }

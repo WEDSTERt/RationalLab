@@ -1,29 +1,41 @@
-#include <iostream>
 #include <string>
+#include <iostream>
 #include "Rational.h"
 #include "Parser.h"
 
+FracType GetExpr();
+
 int main()
 {
+    FracType t = GetExpr();
+    std::cout << t.num << "/" << t.del << std::endl;
+    return 0;
+}
+
+FracType GetExpr() {
     Rational res;
     std::string expr;
+    FracType t;
     std::cout << "Enter an algebraic expression:\n";
-    std::getline(std::cin, expr);
-    if (expr.empty()) return 0;
+    do {
+        std::getline(std::cin, expr);
+    } while (expr.empty());
 
     for (char c : expr) {
         if (std::isalpha((unsigned char)c)) {
-            std::cerr << "Variables are not supported. Enter an expression with numbers only." << std::endl;
-            return 1;
+            std::cerr << "Enter an expression with numbers only." << std::endl;
+            exit(0);
         }
     }
     try {
-        res = LinExpr(expr);
-        std::cout << "Result: "; res.PrValue();
-    } catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-        return 1;
+        Parser p(expr);
+        Rational res = p.parseExpression();
+        p.skip();
+        t = res.GetValFrac();
     }
-
-    return 0;
+    catch (...) {
+        std::cerr << "Error input" << std::endl;
+        exit(0);
+    }
+    return t;
 }

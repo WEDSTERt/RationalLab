@@ -1,7 +1,7 @@
 #pragma once
-#include <iostream>
-#include <string>
+
 #include "Rational.h"
+#include <iostream>
 
 class Parser
 {
@@ -14,4 +14,3 @@ public:
     const std::string& s;
     size_t i;
 };
-Rational LinExpr(const std::string& expr);

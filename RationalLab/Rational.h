@@ -1,7 +1,13 @@
 #pragma once
 
 #include <string>
-#include <iostream>
+
+struct FracType
+{
+    int64_t num;
+    uint64_t del;
+};
+
 class Rational
 {
 public:
@@ -14,8 +20,8 @@ public:
     ~Rational();
     void Ratgcd(Rational& gcdval);
     void SetVal(float);
-    float GetVal() const;
-    void PrValue() const;
+    float GetValFloat() const;
+    FracType GetValFrac() const;
 
     // Arithmetic Operators
     Rational operator +(const Rational&);
@@ -35,7 +41,7 @@ public:
     Rational operator ++(int);
     Rational& operator --();
     Rational operator --(int);
-
+    Rational operator -() const;
 
     //Relational Operators
     bool operator==(const Rational&);
@@ -57,13 +63,14 @@ public:
     Rational operator<< (const int);
     Rational operator>> (const int);
     Rational operator~ ();
+
     //Casting Operators
     operator double() const;
     operator float() const;
     operator int() const;
+
 private:
-    int64_t num;
-    uint64_t del;
+    FracType Frac;
 };
 
 
