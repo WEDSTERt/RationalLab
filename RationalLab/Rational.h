@@ -10,8 +10,8 @@ public:
     Rational(float);
     Rational(const Rational&);
     Rational(int64_t, uint64_t);
-
-
+    Rational(Rational&&);
+    ~Rational();
     void Ratgcd(Rational& gcdval);
     void SetVal(float);
     float GetVal() const;

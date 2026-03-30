@@ -7,17 +7,23 @@ Rational::Rational() {
     del = 1;
 }
 Rational::Rational(float value) {
-    num = 0;
-    del = 0;
     SetVal(value);
+}
+Rational::Rational(int64_t t_num, uint64_t t_del) {
+    num = t_num;
+    del = t_del;
 }
 Rational::Rational(const Rational& c){
     num = c.num;
     del = c.del;
 } 
-Rational::Rational(int64_t t_num, uint64_t t_del) {
-    num = t_num;
-    del = t_del;
+Rational::Rational(Rational&& t){
+    std::swap(num, t.num);
+    std::swap(del, t.del);
+}
+
+Rational::~Rational() {
+    std::cout << "Delete Var "<< std::endl;
 }
 
 void Rational::Ratgcd(Rational& gcdval) {
