@@ -68,6 +68,7 @@ public:
     operator double() const;
     operator float() const;
     operator int() const;
+    operator int64_t() const;
 
 private:
     FracType Frac;
