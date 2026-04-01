@@ -19,9 +19,12 @@ public:
     Rational(Rational&&) noexcept;
     ~Rational();
     void Ratgcd(Rational& gcdval);
+
     void SetVal(float);
     float GetValFloat() const;
     FracType GetValFrac() const;
+
+    static int GetCount();
 
     // Arithmetic Operators
     Rational operator +(const Rational&);
@@ -72,6 +75,8 @@ public:
 
 private:
     FracType Frac;
+    static int count;
+    void CountAdd();
 };
 
 

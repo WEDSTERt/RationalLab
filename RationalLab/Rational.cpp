@@ -1,28 +1,38 @@
 #include "Rational.h"
-#include <iostream>
-#include <iostream>
-Rational::Rational() {
-    Frac.num = 0;
-    Frac.del = 1;
+
+int Rational::count = 0;
+
+//constructors
+
+Rational::Rational(float value) { SetVal(value); CountAdd(); }
+Rational::Rational(int64_t t_num, uint64_t t_del): Frac(t_num, t_del){ 
+    Ratgcd(*this);
+    CountAdd(); 
 }
-Rational::Rational(float value) {
-    SetVal(value);
+Rational::Rational() : Rational(int64_t(0), uint64_t(1)) {}
+
+//Copy
+Rational::Rational(const Rational& c) : Frac(c) {
+    CountAdd();
 }
-Rational::Rational(int64_t t_num, uint64_t t_del) {
-    Frac.num = t_num;
-    Frac.del = t_del;
-}
-Rational::Rational(const Rational& c){
-    Frac.num = c.Frac.num;
-    Frac.del = c.Frac.del;
-} 
+//Move
 Rational::Rational(Rational&& t) noexcept {
     std::swap(Frac.del, t.Frac.del);
     std::swap(Frac.num, t.Frac.num);
+    CountAdd();
 }
 
-Rational::~Rational() {
- //   std::cout << "Delete Var "<< std::endl;
+//deconstructor
+Rational::~Rational() {  
+    count--;
+}
+
+//schitat'
+void Rational::CountAdd() {
+    count++;
+}
+int Rational::GetCount() {
+    return count;
 }
 
 void Rational::Ratgcd(Rational& gcdval) {
@@ -31,7 +41,6 @@ void Rational::Ratgcd(Rational& gcdval) {
     uint64_t b = gcdval.Frac.del;
 
     if (a == 0) {
-        // 0 / d -> normalize to 0/1
         gcdval.Frac.num = 0;
         gcdval.Frac.del = 1;
         return;

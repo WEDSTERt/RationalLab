@@ -12,5 +12,7 @@ public:
     Rational parseTerm();
     Rational parseFactor();
     const std::string& s;
+    static FracType GetExpr();
+private:
     size_t i;
 };

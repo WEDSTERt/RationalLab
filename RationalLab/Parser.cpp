@@ -71,3 +71,31 @@ Rational Parser::parseFactor() {
     }
     throw std::runtime_error(std::string("Unexpected character: ") + s[i]);
 }
+
+FracType Parser::GetExpr() {
+    Rational res;
+    std::string expr;
+    FracType t;
+    std::cout << "Enter an algebraic expression:\n";
+    do {
+        std::getline(std::cin, expr);
+    } while (expr.empty());
+
+    for (char c : expr) {
+        if (std::isalpha((unsigned char)c)) {
+            std::cerr << "Enter an expression with numbers only." << std::endl;
+            exit(0);
+        }
+    }
+    try {
+        Parser p(expr);
+        Rational res = p.parseExpression();
+        p.skip();
+        t = res.GetValFrac();
+    }
+    catch (...) {
+        std::cerr << "Error input" << std::endl;
+        exit(0);
+    }
+    return t;
+}
