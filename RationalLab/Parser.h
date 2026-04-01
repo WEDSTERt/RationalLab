@@ -3,6 +3,12 @@
 #include "Rational.h"
 #include <iostream>
 
+struct FracType
+{
+    int64_t num;
+    uint64_t del;
+};
+
 class Parser
 {
 public:
