@@ -1,5 +1,6 @@
 #include "Rational.h"
 #include <iostream>
+#include <iostream>
 Rational::Rational() {
     Frac.num = 0;
     Frac.del = 1;
