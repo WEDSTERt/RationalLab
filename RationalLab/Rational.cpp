@@ -275,3 +275,7 @@ Rational::operator int() const
 {
     return int(float(Frac.num) / float(Frac.del));
 }
+Rational::operator int64_t() const
+{
+    return int64_t(float(Frac.num) / float(Frac.del));
+}
