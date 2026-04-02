@@ -6,9 +6,8 @@
 
 int main()
 {
-    NalsRat T(1.2f);
-
-    //Parser::PrExpr();
+    //NalsRat T(1.2f);
+    Parser::PrExpr();
     return 0;
 }
 

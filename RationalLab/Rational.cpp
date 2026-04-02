@@ -3,27 +3,44 @@
 int Rational::count = 0;
 
 //constructors
-Rational::Rational(float value) { SetValFloat(value); CountAdd(); std::cout << "2" << std::endl; }
-Rational::Rational(double value) { SetValFloat((float)value); CountAdd(); std::cout << "2" << std::endl; }
-Rational::Rational(FracType T) { SetValFrac(T); CountAdd(); std::cout << "2" << std::endl; }
-Rational::Rational(int64_t t_num, uint64_t t_del): Frac(t_num, t_del){ Ratgcd(*this); CountAdd(); std::cout << "2" << std::endl; }
+Rational::Rational(float value) { 
+    SetValFloat(value); 
+    CountAdd(); 
+    //std::cout << "2" << std::endl; 
+}
+Rational::Rational(double value) { 
+    SetValFloat((float)value); 
+    CountAdd(); 
+    //std::cout << "2" << std::endl; 
+}
+Rational::Rational(FracType T) { 
+    SetValFrac(T); CountAdd(); 
+    //std::cout << "2" << std::endl; 
+}
+Rational::Rational(int64_t t_num, uint64_t t_del): Frac(t_num, t_del){ 
+    Ratgcd(*this); 
+    CountAdd(); 
+    //std::cout << "2" << std::endl; 
+}
 Rational::Rational() : Rational(int64_t(0), uint64_t(1)) { }
 
 //Copy
-Rational::Rational(const Rational& c) : Frac(c.Frac) { CountAdd(); std::cout << "2" << std::endl;}
+Rational::Rational(const Rational& c) : Frac(c.Frac) { 
+    //CountAdd(); std::cout << "2" << std::endl;
+}
 
 //Move
 Rational::Rational(Rational&& t) noexcept {
     std::swap(Frac.del, t.Frac.del);
     std::swap(Frac.num, t.Frac.num);
     CountAdd();
-    std::cout << "2" << std::endl;
+    //std::cout << "2" << std::endl;
 }
 
 //deconstructor
 Rational::~Rational() {  
     count--;
-    std::cout << "DecRat" << std::endl;
+    //std::cout << "DecRat" << std::endl;
 }
 
 //schitat'
