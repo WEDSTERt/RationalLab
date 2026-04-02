@@ -127,11 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="NalsRat.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="Rational.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainRational.cpp" />
+    <ClCompile Include="NalsRat.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Rational.cpp" />
   </ItemGroup>

@@ -3,15 +3,12 @@
 #include "Rational.h"
 #include <iostream>
 
-struct FracType
-{
-    int64_t num;
-    uint64_t del;
-};
-
 class Parser
 {
 public:
+    static void PrExpr();
+private:
+    size_t i;
     Parser(const std::string& str);
     void skip();
     Rational parseExpression();
@@ -19,6 +16,4 @@ public:
     Rational parseFactor();
     const std::string& s;
     static FracType GetExpr();
-private:
-    size_t i;
 };

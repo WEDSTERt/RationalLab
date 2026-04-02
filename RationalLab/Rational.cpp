@@ -1,20 +1,19 @@
 #include "Rational.h"
-
+#include <iostream>
 int Rational::count = 0;
 
 //constructors
-
-Rational::Rational(float value) { SetVal(value); CountAdd(); }
-Rational::Rational(int64_t t_num, uint64_t t_del): Frac(t_num, t_del){ 
-    Ratgcd(*this);
-    CountAdd(); 
+Rational::Rational(float value) { SetValFloat(value); CountAdd();
+std::cout << "2" << std::endl;
 }
-Rational::Rational() : Rational(int64_t(0), uint64_t(1)) {}
+Rational::Rational(double value) { SetValFloat((float)value); CountAdd(); }
+Rational::Rational(FracType T) { SetValFrac(T); CountAdd(); }
+Rational::Rational(int64_t t_num, uint64_t t_del): Frac(t_num, t_del){ Ratgcd(*this); CountAdd(); }
+Rational::Rational() : Rational(int64_t(0), uint64_t(1)) { }
 
 //Copy
-Rational::Rational(const Rational& c) : Frac(c) {
-    CountAdd();
-}
+Rational::Rational(const Rational& c) : Frac(c.Frac) { CountAdd(); }
+
 //Move
 Rational::Rational(Rational&& t) noexcept {
     std::swap(Frac.del, t.Frac.del);
@@ -56,7 +55,7 @@ void Rational::Ratgcd(Rational& gcdval) {
     gcdval.Frac.del = gcdval.Frac.del / a;
 }
 
-void Rational::SetVal(float value) {
+void Rational::SetValFloat(float value) {
     int64_t bits;
     std::memcpy(&bits, &value, sizeof(float));
 
@@ -81,7 +80,10 @@ void Rational::SetVal(float value) {
     }
     Ratgcd(*this);
 }
-
+void Rational::SetValFrac(FracType F) {
+    Frac.num = F.num;
+    Frac.del = F.del;
+}
 float Rational::GetValFloat() const {
     return float(double(Frac.num) / double(Frac.del));
 }
@@ -288,4 +290,8 @@ Rational::operator int() const
 Rational::operator int64_t() const
 {
     return int64_t(float(Frac.num) / float(Frac.del));
+}
+Rational::operator FracType() const
+{
+    return Frac;
 }

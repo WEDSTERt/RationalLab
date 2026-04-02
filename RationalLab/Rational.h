@@ -14,13 +14,16 @@ public:
 
     Rational();
     Rational(float);
+    Rational(double);
+    Rational(FracType);
     Rational(int64_t, uint64_t);
     Rational(const Rational&);
     Rational(Rational&&) noexcept;
     ~Rational();
     void Ratgcd(Rational& gcdval);
 
-    void SetVal(float);
+    void SetValFloat(float);
+    void SetValFrac(FracType);
     float GetValFloat() const;
     FracType GetValFrac() const;
 
@@ -72,6 +75,7 @@ public:
     operator float() const;
     operator int() const;
     operator int64_t() const;
+    operator FracType() const;
 
 private:
     FracType Frac;

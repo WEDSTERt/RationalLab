@@ -99,3 +99,7 @@ FracType Parser::GetExpr() {
     }
     return t;
 }
+void Parser::PrExpr() {
+    FracType t = GetExpr();
+    std::cout << t.num << "/" << t.del << std::endl;
+}
