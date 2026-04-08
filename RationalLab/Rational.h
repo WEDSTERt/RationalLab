@@ -13,6 +13,8 @@ class Rational
 public:
 
     Rational();
+    Rational(int);
+    Rational(short);
     Rational(float);
     Rational(double);
     Rational(FracType);
@@ -26,6 +28,7 @@ public:
     void SetValFrac(FracType);
     float GetValFloat() const;
     FracType GetValFrac() const;
+    int64_t GetOcrlVal(char) const;
 
     static int GetCount();
 

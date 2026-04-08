@@ -3,6 +3,16 @@
 int Rational::count = 0;
 
 //constructors
+Rational::Rational(short value) {
+    SetValFloat(float(value));
+    CountAdd();
+    //std::cout << "2" << std::endl; 
+}
+Rational::Rational(int value) {
+    SetValFloat(float(value));
+    CountAdd();
+    //std::cout << "2" << std::endl; 
+}
 Rational::Rational(float value) { 
     SetValFloat(value); 
     CountAdd(); 
@@ -108,25 +118,32 @@ FracType Rational::GetValFrac() const {
     return Frac;
 }
 Rational Rational::operator +(const Rational& x) {
-    Rational res{};
-    res.Frac.num = Frac.num * x.Frac.del + x.Frac.num * Frac.del;
-    res.Frac.del = Frac.del * x.Frac.del;
+    Rational res(Frac.num * x.Frac.del + x.Frac.num * Frac.del, Frac.del * x.Frac.del);
     Ratgcd(res);
     return res;
+}
+int64_t Rational::GetOcrlVal(char t) const{
+    switch (t)
+    {
+    case 'u':
+        return int64_t((Frac.num + Frac.del - 1 )/ Frac.del);
+    case 'd':
+        return int64_t(float(*this));
+    case 'n':
+        return int64_t(float(*this) + 0.5);
+    default:
+        break;
+    }
 }
 
 // Arithmetic Operators
 Rational Rational::operator -(const Rational& x) {
-    Rational res{};
-    res.Frac.num = Frac.num * x.Frac.del - x.Frac.num * Frac.del;
-    res.Frac.del = Frac.del * x.Frac.del;
+    Rational res(Frac.num * x.Frac.del - x.Frac.num * Frac.del, Frac.del * x.Frac.del);
     Ratgcd(res);
     return res;
 }
 Rational Rational::operator *(const Rational& x) {
-    Rational res{};
-    res.Frac.num = Frac.num * x.Frac.num;
-    res.Frac.del = Frac.del * x.Frac.del;
+    Rational res(Frac.num * x.Frac.num, Frac.del * x.Frac.del);
     Ratgcd(res);
     return res;
 }
@@ -186,8 +203,7 @@ Rational& Rational::operator ++() {
     return *this;
 }
 Rational Rational::operator ++(int) {
-    Rational res = *this;
-    Frac.num = Frac.num + Frac.del;
+    Rational res (Frac.num+Frac.del, Frac.del);
     return res;
 }
 Rational& Rational::operator --() {
@@ -195,14 +211,11 @@ Rational& Rational::operator --() {
     return *this;
 }
 Rational Rational::operator --(int) {
-    Rational res = *this;
-    Frac.num = Frac.num - Frac.del;
+    Rational res(Frac.num - Frac.del, Frac.del);
     return res;
 }
 Rational Rational::operator-() const {
-    Rational x;
-    x.Frac.num = -Frac.num;
-    x.Frac.del = Frac.del;
+    Rational x(-Frac.num, Frac.del);
     return x;
 }
 
@@ -247,47 +260,27 @@ bool Rational::operator! () {
 
 //Bitwise Operators
 Rational Rational::operator& (const Rational& x) {
-    Rational res{};
-    res.Frac.num = Frac.num & x.Frac.num;
-    res.Frac.del = Frac.del & x.Frac.del;
-    Ratgcd(res);
+    Rational res(Frac.num & x.Frac.num, Frac.del & x.Frac.del);
     return res;
 }
 Rational Rational::operator| (const Rational& x) {
-    Rational res{};
-    res.Frac.num = Frac.num | x.Frac.num;
-    res.Frac.del = Frac.del | x.Frac.del;
-    Ratgcd(res);
+    Rational res(Frac.num | x.Frac.num, Frac.del | x.Frac.del);
     return res;
 }
 Rational Rational::operator^ (const Rational& x) {
-    Rational res{};
-    res.Frac.num = Frac.num ^ x.Frac.num;
-    res.Frac.del = Frac.del ^ x.Frac.del;
-    Ratgcd(res);
+    Rational res(Frac.num ^ x.Frac.num, Frac.del ^ x.Frac.del);
     return res;
 }
 Rational Rational::operator<< (const int x) {
-    Rational res{};
-    res.Frac.num = Frac.num << x;
-    res.Frac.del = Frac.del << x;
-    Ratgcd(res);
+    Rational res(Frac.num << x, Frac.del << x);
     return res;
 }
 Rational Rational::operator>> (const int x) {
-    Rational res{};
-    res.Frac.num = Frac.num >> x;
-    res.Frac.del = Frac.del >> x;
-    Ratgcd(res);
+    Rational res(Frac.num >> x, Frac.del >> x);
     return res;
 }
-
-
 Rational Rational::operator~ () {
-    Rational res{};
-    res.Frac.num = ~Frac.num;
-    res.Frac.del = ~Frac.del;
-    Ratgcd(res);
+    Rational res(~Frac.num, ~Frac.del);
     return res;
 }
 
